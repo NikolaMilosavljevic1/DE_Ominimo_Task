@@ -1,0 +1,26 @@
+services:
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ominimo-pipeline:latest
+    container_name: ominimo-pipeline
+    volumes:
+      - ./data:/data
+      - ./config:/config:ro
+    command: ["python3", "/app/src/main.py", "--config", "/config/pipeline.json"]
+
+  # Usage: docker compose --profile testing run --rm tests
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ominimo-pipeline:latest
+    container_name: ominimo-tests
+    volumes:
+      - ./tests:/app/tests:ro
+      - ./src:/app/src:ro
+    working_dir: /app
+    entrypoint: ["python3", "-m", "pytest", "tests/", "-v"]
+    profiles:
+      - testing

@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+
+# Spark / Java
+derby.log
+metastore_db/
+spark-warehouse/
+
+# Output data (generated at runtime — not tracked in git)
+data/output/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

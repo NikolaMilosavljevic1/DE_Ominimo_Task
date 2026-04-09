@@ -1,0 +1,23 @@
+- Create project directory structure
+
+- Write metadata JSON config (pipeline.json)
+
+- Write input sample data (motor_policy.jsonl)
+
+- Build MetadataParser class
+
+- Build Validator (notEmpty, notNull, type checks)
+
+- Build PipelineRunner (sources → transformations → sinks)
+
+- Write main entrypoint (main.py)
+
+- Write Dockerfile
+
+- Write docker-compose.yml
+
+- Write Airflow DAG (bonus)
+
+- Write requirements.txt and .gitignore
+
+- Initialize git repo with initial commit

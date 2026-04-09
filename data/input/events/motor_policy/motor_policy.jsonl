@@ -1,0 +1,5 @@
+{"policy_number":"12345","driver_age":45,"plate_number":""}
+{"policy_number":"67890","plate_number":"ABC-123"}
+{"policy_number":"54321","driver_age":30,"plate_number":"XYZ-789"}
+{"policy_number":"","driver_age":22,"plate_number":"DEF-456"}
+{"policy_number":"99999","driver_age":17,"plate_number":"GHI-321"}
