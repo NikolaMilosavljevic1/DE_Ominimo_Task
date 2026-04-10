@@ -16,9 +16,17 @@
           "params": {
             "input": "policy_inputs",
             "validations": [
-              {"field": "plate_number", "validations": ["notEmpty"]},
-              {"field": "driver_age",   "validations": ["notNull"]},
-              {"field": "policy_number","validations": ["notNull", "notEmpty"]}
+              {"field": "policy_number",    "validations": ["notNull", "notEmpty"]},
+              {"field": "plate_number",     "validations": ["notEmpty", "validPlate"]},
+              {"field": "driver_age",       "validations": ["notNull", "positive", "minAge18", "maxAge100"]},
+              {"field": "vehicle_make",     "validations": ["notNull", "validMake"]},
+              {"field": "vehicle_year",     "validations": ["notNull", "validYear"]},
+              {"field": "price",            "validations": ["notNull", "validPrice"]},
+              {"field": "coverage_type",    "validations": ["notNull", "validCoverage"]},
+              {"field": "variant",          "validations": ["notNull", "validVariant"]},
+              {"field": "deductible",       "validations": ["notNull", "validDeductible"]},
+              {"field": "policy_start_date","validations": ["notNull", "validDateFormat", "startBeforeEnd"]},
+              {"field": "policy_end_date",  "validations": ["notNull", "validDateFormat"]}
             ]
           }
         },

@@ -5,6 +5,9 @@ services:
       dockerfile: Dockerfile
     image: ominimo-pipeline:latest
     container_name: ominimo-pipeline
+    environment:
+      # Picks up the host machine's timezone automatically
+      - TZ=${TZ:-Europe/Belgrade}
     volumes:
       - ./data:/data
       - ./config:/config:ro

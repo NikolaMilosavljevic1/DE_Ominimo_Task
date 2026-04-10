@@ -39,7 +39,6 @@ def build_arg_parser() -> argparse.ArgumentParser:
 def build_spark() -> SparkSession:
     return (
         SparkSession.builder.appName("ominimo-motor-ingestion")
-        .config("spark.sql.session.timeZone", "UTC")
         # Needed for map_filter (Spark 3.x)
         .config("spark.sql.legacy.allowUntypedScalaUDF", "true")
         .getOrCreate()
@@ -90,7 +89,6 @@ def main():
         spark.stop()
 
     logger.info("All dataflows completed.")
-
 
 if __name__ == "__main__":
     main()

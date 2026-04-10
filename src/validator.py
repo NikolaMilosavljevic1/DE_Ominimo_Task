@@ -20,12 +20,61 @@ VALIDATION_REGISTRY: dict[str, callable] = {
     "notNull": lambda field: F.col(field).isNotNull(),
     # Field must be present, non-null, and non-empty string
     "notEmpty": lambda field: F.col(field).isNotNull() & (F.trim(F.col(field).cast(StringType())) != ""),
-    # Field must be a positive number (> 0)
+    # Field must be a positive number
     "positive": lambda field: F.col(field).isNotNull() & (F.col(field) > 0),
-    # Field must be >= 18 (legal driving age)
+    # Driver must be at least 18 years old
     "minAge18": lambda field: F.col(field).isNotNull() & (F.col(field) >= 18),
-    # Field must be <= 100
+    # Driver must be below 100 years old
     "maxAge100": lambda field: F.col(field).isNotNull() & (F.col(field) <= 100),
+    # Plate must match format: 2-3 uppercase letters, hyphen, 3 digits (ABC-123)
+    "validPlate": lambda field: F.col(field).isNotNull() & F.col(field).rlike(r"^[A-Z]{2,3}-\d{3}$"),
+    # Vehicle year must be between 1886 (first car ever built) and current year
+    "validYear": lambda field: (
+        F.col(field).isNotNull() &
+        (F.col(field) >= 1886) &
+        (F.col(field) <= F.year(F.current_date()))
+    ),
+    # Price must be at least 1.0
+    "validPrice": lambda field: (
+        F.col(field).isNotNull() &
+        F.col(field) >= 1.0
+    ),
+    # Coverage type must be one of Ominimo's actual motor insurance products
+    "validCoverage": lambda field: (
+        F.col(field).isNotNull() &
+        F.col(field).isin("MTPL", "Limited Casco", "Casco")
+    ),
+    # Variant is only applicable for Limited Casco and Casco products
+    "validVariant": lambda field: (
+        F.col(field).isNotNull() &
+        F.col(field).isin("Compact", "Basic", "Comfort", "Premium")
+    ),
+    # Deductible must be one of the three allowed values (100, 200, 500)
+    "validDeductible": lambda field: (
+        F.col(field).isNotNull() &
+        F.col(field).isin(100, 200, 500)
+    ),
+    # Vehicle make must not be empty and must contain only letters, spaces, or hyphens
+    "validMake": lambda field: (
+        F.col(field).isNotNull() &
+        (F.trim(F.col(field).cast(StringType())) != "") &
+        F.col(field).rlike(r"^[A-Za-z\s\-]+$")
+    ),
+    # Date must be in yyyy-MM-dd HH:mm:ss format
+    "validDateFormat": lambda field: (
+        F.col(field).isNotNull() &
+        F.to_timestamp(F.col(field), "yyyy-MM-dd HH:mm:ss").isNotNull()
+    ),
+    # Policy start date must be before policy end date (cross-field rule)
+    # Used on policy_start_date field, reads policy_end_date from same row
+    "startBeforeEnd": lambda field: (
+        F.col(field).isNotNull() &
+        F.col("policy_end_date").isNotNull() &
+        (
+            F.to_timestamp(F.col(field), "yyyy-MM-dd HH:mm:ss") <
+            F.to_timestamp(F.col("policy_end_date"), "yyyy-MM-dd HH:mm:ss")
+        )
+    ),
 }
 
 

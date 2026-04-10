@@ -25,9 +25,9 @@ logger = logging.getLogger(__name__)
 class PipelineRunner:
     """Executes a single DataflowConfig using PySpark."""
 
-    # Maps add_fields function names from metadata → Spark Column expressions
+    # Maps add_fields function names from metadata -> Spark Column expressions
     FIELD_FUNCTION_REGISTRY: dict[str, callable] = {
-        "current_timestamp": lambda: F.current_timestamp(),
+        "current_timestamp": lambda: F.date_format(F.current_timestamp(), "yyyy-MM-dd HH:mm:ss"),
         "current_date": lambda: F.current_date(),
     }
 

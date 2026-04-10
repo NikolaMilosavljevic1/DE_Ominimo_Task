@@ -7,6 +7,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from pyspark.sql import SparkSession
+from pyspark.sql.types import StructType, StructField, StringType, LongType
 from validator import Validator
 
 
@@ -49,10 +50,12 @@ class TestValidator:
         assert ko.count() == 1
 
     def test_null_driver_age_goes_to_ko(self, spark):
-        df = spark.createDataFrame(
-            [("67890", None, "ABC-123")],
-            ["policy_number", "driver_age", "plate_number"],
-        )
+        schema = StructType([
+            StructField("policy_number", StringType(), True),
+            StructField("driver_age",    LongType(),   True),
+            StructField("plate_number",  StringType(), True),
+        ])
+        df = spark.createDataFrame([("67890", None, "ABC-123")], schema)
         config = [{"field": "driver_age", "validations": ["notNull"]}]
         ok, ko = Validator(config).apply(df)
         assert ok.count() == 0
@@ -67,10 +70,12 @@ class TestValidator:
         assert "validation_errors" in ko.columns
 
     def test_multiple_failures_all_captured(self, spark):
-        df = spark.createDataFrame(
-            [("", None, "")],
-            ["policy_number", "driver_age", "plate_number"],
-        )
+        schema = StructType([
+            StructField("policy_number", StringType(), True),
+            StructField("driver_age",    LongType(),   True),
+            StructField("plate_number",  StringType(), True),
+        ])
+        df = spark.createDataFrame([("", None, "")], schema)
         config = [
             {"field": "plate_number",  "validations": ["notEmpty"]},
             {"field": "driver_age",    "validations": ["notNull"]},
@@ -82,13 +87,18 @@ class TestValidator:
         assert len(errors) == 3
 
     def test_mixed_records_split_correctly(self, spark):
+        schema = StructType([
+            StructField("policy_number", StringType(), True),
+            StructField("driver_age",    LongType(),   True),
+            StructField("plate_number",  StringType(), True),
+        ])
         df = spark.createDataFrame(
             [
                 ("12345", 45,  ""),       # KO — empty plate
                 ("67890", None,"ABC-123"),# KO — null age
                 ("54321", 30, "XYZ-789"),# OK
             ],
-            ["policy_number", "driver_age", "plate_number"],
+            schema,
         )
         config = [
             {"field": "plate_number", "validations": ["notEmpty"]},

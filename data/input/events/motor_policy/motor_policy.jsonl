@@ -1,5 +1,5 @@
-{"policy_number":"12345","driver_age":45,"plate_number":""}
-{"policy_number":"67890","plate_number":"ABC-123"}
-{"policy_number":"54321","driver_age":30,"plate_number":"XYZ-789"}
-{"policy_number":"","driver_age":22,"plate_number":"DEF-456"}
-{"policy_number":"99999","driver_age":17,"plate_number":"GHI-321"}
+{"policy_number":"12345","driver_age":45,"plate_number":"","vehicle_make":"Toyota","vehicle_year":2018,"price":650.00,"coverage_type":"Casco","variant":"Comfort","deductible":200,"policy_start_date":"2024-01-01 00:00:00","policy_end_date":"2025-01-01 00:00:00"}
+{"policy_number":"67890","plate_number":"ABC-123","vehicle_make":"BMW","vehicle_year":2020,"price":1200.00,"coverage_type":"Casco","variant":"Premium","deductible":100,"policy_start_date":"2024-03-01 00:00:00","policy_end_date":"2025-03-01 00:00:00"}
+{"policy_number":"54321","driver_age":30,"plate_number":"XYZ-789","vehicle_make":"Volkswagen","vehicle_year":2019,"price":480.00,"coverage_type":"MTPL","variant":"Basic","deductible":500,"policy_start_date":"2024-06-01 00:00:00","policy_end_date":"2025-06-01 00:00:00"}
+{"policy_number":"","driver_age":22,"plate_number":"DEF-456","vehicle_make":"Ford","vehicle_year":2021,"price":320.00,"coverage_type":"Limited Casco","variant":"Compact","deductible":200,"policy_start_date":"2024-02-01 00:00:00","policy_end_date":"2025-02-01 00:00:00"}
+{"policy_number":"99999","driver_age":17,"plate_number":"GHI-321","vehicle_make":"Honda","vehicle_year":2022,"price":900.00,"coverage_type":"Casco","variant":"Premium","deductible":100,"policy_start_date":"2024-04-01 00:00:00","policy_end_date":"2025-04-01 00:00:00"}
