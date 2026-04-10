@@ -1,13 +1,7 @@
-"""
-MetadataParser — loads and validates a pipeline metadata JSON config.
-
-The config drives all pipeline behaviour: sources, transformations, and sinks
-are expressed as data, not code. Changing the JSON changes what the pipeline does.
-"""
-
 import json
 from dataclasses import dataclass, field
 from typing import Any
+
 
 @dataclass
 class SourceConfig:
@@ -43,7 +37,6 @@ class DataflowConfig:
 
 
 class MetadataParser:
-    """Parses a pipeline metadata JSON file into typed config objects."""
 
     SUPPORTED_SOURCE_FORMATS = {"JSON", "CSV", "PARQUET", "DELTA"}
     SUPPORTED_SINK_FORMATS = {"JSON", "CSV", "PARQUET", "DELTA"}
@@ -57,10 +50,6 @@ class MetadataParser:
         with open(self.config_path, "r", encoding="utf-8") as f:
             self._raw = json.load(f)
         return [self._parse_dataflow(df) for df in self._raw.get("dataflows", [])]
-
-    # ------------------------------------------------------------------
-    # Private helpers
-    # ------------------------------------------------------------------
 
     def _parse_dataflow(self, raw: dict) -> DataflowConfig:
         name = self._require(raw, "name", context="dataflow")

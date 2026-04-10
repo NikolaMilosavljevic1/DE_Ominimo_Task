@@ -1,5 +1,3 @@
-"""Unit tests for MetadataParser."""
-
 import json
 import os
 import tempfile

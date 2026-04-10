@@ -1,5 +1,3 @@
-"""Unit tests for Validator using a local Spark session."""
-
 import os
 import sys
 import pytest
@@ -50,6 +48,7 @@ class TestValidator:
         assert ko.count() == 1
 
     def test_null_driver_age_goes_to_ko(self, spark):
+        # explicit schema needed so Spark treats driver_age as LongType, not StringType
         schema = StructType([
             StructField("policy_number", StringType(), True),
             StructField("driver_age",    LongType(),   True),
@@ -94,9 +93,9 @@ class TestValidator:
         ])
         df = spark.createDataFrame(
             [
-                ("12345", 45,  ""),       # KO — empty plate
-                ("67890", None,"ABC-123"),# KO — null age
-                ("54321", 30, "XYZ-789"),# OK
+                ("12345", 45,   ""),        # KO - empty plate
+                ("67890", None, "ABC-123"), # KO - null age
+                ("54321", 30,   "XYZ-789"), # OK
             ],
             schema,
         )

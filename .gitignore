@@ -11,7 +11,8 @@ metastore_db/
 spark-warehouse/
 
 # Output data (generated at runtime — not tracked in git)
-data/output/
+data/output/**
+!data/output/**/.gitkeep
 
 # IDE
 .idea/
