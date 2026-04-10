@@ -1,7 +1,9 @@
 # Ominimo - Motor Insurance Policy Ingestion Pipeline
 
-A metadata-driven PySpark framework for ingesting, validating, and storing motor insurance policy data. Pipeline behaviour - what to read, what to validate, and where to write - is defined entirely in a JSON config file. Changing the config changes the pipeline without touching any Python code.
-All the data used for testing inside motor_policy.json files are made up. 
+> A metadata-driven PySpark framework for ingesting, validating, and storing motor insurance policy data. Pipeline behaviour - what to read, what to validate, and where to write - is defined entirely in a JSON config file. Changing the config changes the pipeline without touching any Python code.
+
+> All the data used for testing inside motor_policy.json files are made up.
+
 ---
 
 ## Project Structure
